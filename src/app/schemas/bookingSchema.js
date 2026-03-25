@@ -12,5 +12,5 @@ export const createBookingSchema = (timeSlots) =>
     eventDate: z.coerce.date().min(new Date(), { message: "Event date must be in the future" }),
     numberOfGuests: z.coerce.number().min(1).max(10, { message: "Number of Guests must be less than or equal to 10" }),
     timeSlot: z.enum(timeSlots, { message: "Selected time slot is unavailable" }),
-    eventLink: z.url({ message: "Invalid URL. Please enter a valid event link" }),
+    eventLink: z.string().url({ message: "Invalid URL. Please enter a valid event link" }),
   });
