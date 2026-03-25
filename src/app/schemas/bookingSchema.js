@@ -1,13 +1,13 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // Starter schema for the task. Implement full validation rules from README.
-export const createBookingSchema = () =>
+export const createBookingSchema = (timeSlots) =>
   z.object({
-    bookerName: z.string(),
-    bookerEmail: z.string().optional(),
-    eventName: z.string(),
-    eventDate: z.any(),
-    numberOfGuests: z.any(),
-    timeSlot: z.string(),
-    eventLink: z.string(),
+    bookerName: z.string().min(2),
+    bookerEmail: z.email().optional(),
+    eventName: z.string().min(2),
+    eventDate: z.coerce.date().min(new Date(), { message: "Must be a future date" }),
+    numberOfGuests: z.coerce.number().min(2).max(10),
+    timeSlot: z.enum(timeSlots),
+    eventLink: z.url(),
   });
